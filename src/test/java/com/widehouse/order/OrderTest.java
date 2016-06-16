@@ -25,18 +25,37 @@ public class OrderTest {
         // Given
         Product product = new Product();
         List<OrderLine> orderLines = Arrays.asList(new OrderLine(product, 100, 2), new OrderLine(product, 300, 1));
+        ShippingInfo shippingInfo = new ShippingInfo("", "", "", "", "");
         // When
-        Order order = new Order(orderLines);
+        Order order = new Order(orderLines, shippingInfo);
         // Then
         assertThat(order.getTotalAmount()).isEqualTo(500);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void emptyOrderLineShouldRaiseIllegalArgumentException() {
         // Give
         List<OrderLine> orderLines = new ArrayList<>();
+        ShippingInfo shippingInfo = new ShippingInfo("", "", "", "", "");
         // When
-        Order order = new Order(orderLines);
+        try {
+            Order order = new Order(orderLines, shippingInfo);
+        } catch (Exception e) {
+            assertThat(e).isInstanceOf(IllegalArgumentException.class);
+        }
+    }
+
+    @Test
+    public void emptyShippingInfoShouldRaiseIllegalArgumentException() {
+        // Given
+        Product product = new Product();
+        List<OrderLine> orderLines = Arrays.asList(new OrderLine(product, 100, 1));
+
+        try {
+            Order order = new Order(orderLines, null);
+        } catch (Exception e) {
+            assertThat(e).isInstanceOf(IllegalArgumentException.class);
+        }
     }
 
 }
