@@ -2,8 +2,6 @@ package com.widehouse.order;
 
 
 import com.widehouse.Product;
-import com.widehouse.order.Order;
-import com.widehouse.order.OrderLine;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -33,27 +31,31 @@ public class OrderTest {
     }
 
     @Test
-    public void emptyOrderLineShouldRaiseIllegalArgumentException() {
+    public void emptyOrderLineShouldNotEmpty() {
         // Give
         List<OrderLine> orderLines = new ArrayList<>();
         ShippingInfo shippingInfo = new ShippingInfo("", "", "", "", "");
+
         // When
         try {
             Order order = new Order(orderLines, shippingInfo);
         } catch (Exception e) {
+        // Then
             assertThat(e).isInstanceOf(IllegalArgumentException.class);
         }
     }
 
     @Test
-    public void emptyShippingInfoShouldRaiseIllegalArgumentException() {
+    public void emptyShippingInfoShouldNotNull() {
         // Given
         Product product = new Product();
         List<OrderLine> orderLines = Arrays.asList(new OrderLine(product, 100, 1));
 
         try {
+        // When
             Order order = new Order(orderLines, null);
         } catch (Exception e) {
+        // Then
             assertThat(e).isInstanceOf(IllegalArgumentException.class);
         }
     }
