@@ -1,10 +1,14 @@
-package com.widehouse;
+package com.widehouse.order;
 
 
+import com.widehouse.Product;
+import com.widehouse.order.Order;
+import com.widehouse.order.OrderLine;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,5 +31,12 @@ public class OrderTest {
         assertThat(order.getTotalAmount()).isEqualTo(500);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void emptyOrderLineShouldRaiseIllegalArgumentException() {
+        // Give
+        List<OrderLine> orderLines = new ArrayList<>();
+        // When
+        Order order = new Order(orderLines);
+    }
 
 }

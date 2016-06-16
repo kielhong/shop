@@ -1,5 +1,7 @@
-package com.widehouse;
+package com.widehouse.order;
 
+import com.widehouse.Product;
+import com.widehouse.order.OrderLine;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;

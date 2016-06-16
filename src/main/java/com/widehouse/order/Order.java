@@ -1,4 +1,4 @@
-package com.widehouse;
+package com.widehouse.order;
 
 import lombok.Getter;
 
@@ -13,11 +13,17 @@ public class Order {
     private long totalAmount;
 
     public Order(List<OrderLine> orderLines) {
-        this.orderLines = orderLines;
+        setOrderLines(orderLines);
 
         this.totalAmount = orderLines.stream()
                 .mapToLong(OrderLine::getAmount)
                 .sum();
+    }
+
+    private void setOrderLines(List<OrderLine> orderLines) {
+        if (orderLines == null || orderLines.isEmpty()) {
+            throw new IllegalArgumentException("no OrderLine");
+        }
     }
 
 

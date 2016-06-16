@@ -1,4 +1,6 @@
-package com.widehouse;
+package com.widehouse.order;
+
+import com.widehouse.Product;
 
 /**
  * Created by kiel on 2016. 6. 15..
