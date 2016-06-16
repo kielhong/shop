@@ -10,6 +10,7 @@ import java.util.List;
  */
 @Getter
 public class Order {
+    private OrderState orderState;
     private List<OrderLine> orderLines;
     private long totalAmount;
     private ShippingInfo shippingInfo;
@@ -17,10 +18,23 @@ public class Order {
     public Order(List<OrderLine> orderLines, ShippingInfo shippingInfo) {
         setOrderLines(orderLines);
         setShippingInfo(shippingInfo);
+        orderState = OrderState.PAYMENT_WAITING;
 
         this.totalAmount = orderLines.stream()
                 .mapToLong(OrderLine::getAmount)
                 .sum();
+    }
+
+    public void changeShippingInfo(ShippingInfo shippingInfo) {
+        if (isNotYetShipped()) {
+            setShippingInfo(shippingInfo);
+        } else {
+            throw new IllegalArgumentException("after shipped, shipping info can not change");
+        }
+    }
+
+    public void changeOrderState(OrderState newState) {
+        this.orderState = newState;
     }
 
     private void setOrderLines(List<OrderLine> orderLines) {
@@ -33,6 +47,10 @@ public class Order {
         Assert.notNull(shippingInfo);
 
         this.shippingInfo = shippingInfo;
+    }
+
+    private boolean isNotYetShipped() {
+        return (orderState == OrderState.PAYMENT_WAITING || orderState == OrderState.PREPARING);
     }
 
 

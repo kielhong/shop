@@ -2,6 +2,7 @@ package com.widehouse.order;
 
 
 import com.widehouse.Product;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -17,6 +18,17 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(SpringRunner.class)
 public class OrderTest {
+
+    Order order;
+
+    @Before
+    public void setup() {
+        Product product = new Product();
+        List<OrderLine> orderLines = Arrays.asList(new OrderLine(product, 100, 1));
+        ShippingInfo shippingInfo = new ShippingInfo("", "", "", "", "");
+
+        order = new Order(orderLines, shippingInfo);
+    }
 
     @Test
     public void testSetOrderLinesShouldSetTotalAmounts() {
@@ -59,5 +71,34 @@ public class OrderTest {
             assertThat(e).isInstanceOf(IllegalArgumentException.class);
         }
     }
+
+    @Test
+    public void changeShippingInfoShouldSuccess() {
+        // Given
+        ShippingInfo newShippingInfo = new ShippingInfo("1", "1", "", "", "");
+        order.changeOrderState(OrderState.PREPARING);
+        // When
+        order.changeShippingInfo(newShippingInfo);
+        // Then
+        assertThat(order.getShippingInfo()).isEqualTo(newShippingInfo);
+    }
+
+    @Test
+    public void changeShippingInfoAfterShippedShouldFail() {
+        // Given
+        order.changeOrderState(OrderState.SHIPPED);
+
+        try {
+            // When
+            order.changeShippingInfo(new ShippingInfo("1", "1", "", "", ""));
+        } catch (Exception e) {
+            // Then
+            assertThat(e)
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("after shipped, shipping info can not change");
+        }
+    }
+
+
 
 }
