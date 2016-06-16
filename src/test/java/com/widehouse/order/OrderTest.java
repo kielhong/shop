@@ -95,10 +95,25 @@ public class OrderTest {
             // Then
             assertThat(e)
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("after shipped, shipping info can not change");
+                    .hasMessage("already shipped");
         }
     }
 
+    @Test
+    public void cancelAfterShippedShouldFail() {
+        // Given
+        order.changeOrderState(OrderState.SHIPPED);
+
+        try {
+            // When
+            order.cancel();
+        } catch (Exception e) {
+            // Then
+            assertThat(e)
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("already shipped");
+        }
+    }
 
 
 }

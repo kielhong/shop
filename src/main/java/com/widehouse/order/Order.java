@@ -1,8 +1,10 @@
 package com.widehouse.order;
 
 import lombok.Getter;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.util.Assert;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -10,10 +12,13 @@ import java.util.List;
  */
 @Getter
 public class Order {
+    @NotNull
     private OrderState orderState;
+    @NotNull
     private List<OrderLine> orderLines;
-    private long totalAmount;
+    @NotNull
     private ShippingInfo shippingInfo;
+    private long totalAmount;
 
     public Order(List<OrderLine> orderLines, ShippingInfo shippingInfo) {
         setOrderLines(orderLines);
@@ -29,12 +34,20 @@ public class Order {
         if (isNotYetShipped()) {
             setShippingInfo(shippingInfo);
         } else {
-            throw new IllegalArgumentException("after shipped, shipping info can not change");
+            throw new IllegalArgumentException("already shipped");
         }
     }
 
     public void changeOrderState(OrderState newState) {
         this.orderState = newState;
+    }
+
+    public void cancel() {
+        if (isNotYetShipped()) {
+            changeOrderState(OrderState.CANCELED);
+        } else {
+            throw new IllegalArgumentException("already shipped");
+        }
     }
 
     private void setOrderLines(List<OrderLine> orderLines) {
