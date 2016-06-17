@@ -1,8 +1,16 @@
 package com.widehouse.order.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+
 import com.widehouse.Product;
 import com.widehouse.exception.OrderNotFoundException;
-import com.widehouse.order.domain.*;
+import com.widehouse.order.domain.Order;
+import com.widehouse.order.domain.OrderLine;
+import com.widehouse.order.domain.OrderRepository;
+import com.widehouse.order.domain.OrderState;
+import com.widehouse.order.domain.ShippingAddress;
+import com.widehouse.order.domain.ShippingInfo;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,9 +21,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
 
 /**
  * Created by kiel on 2016. 6. 17..
@@ -28,6 +33,9 @@ public class OrderServiceTest {
     @Autowired
     private OrderService orderService;
 
+    /**
+     * set up
+     */
     @Before
     public void setup() {
         Product product = new Product();

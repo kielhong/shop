@@ -1,18 +1,15 @@
 package com.widehouse.order.domain;
 
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.widehouse.Product;
-import com.widehouse.order.domain.*;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created by kiel on 2016. 6. 15..
@@ -23,6 +20,9 @@ public class OrderTest {
     Order order;
     ShippingAddress shippingAddress;
 
+    /**
+     * set up
+     */
     @Before
     public void setup() {
         Product product = new Product();
@@ -51,11 +51,11 @@ public class OrderTest {
         List<OrderLine> orderLines = new ArrayList<>();
         ShippingInfo shippingInfo = new ShippingInfo("", "", shippingAddress);
 
-        // When
         try {
+            // When
             Order order = new Order(orderLines, shippingInfo);
         } catch (Exception e) {
-        // Then
+            // Then
             assertThat(e).isInstanceOf(IllegalArgumentException.class);
         }
     }
@@ -67,10 +67,10 @@ public class OrderTest {
         List<OrderLine> orderLines = Arrays.asList(new OrderLine(product, 100, 1));
 
         try {
-        // When
+            // When
             Order order = new Order(orderLines, null);
         } catch (Exception e) {
-        // Then
+            // Then
             assertThat(e).isInstanceOf(IllegalArgumentException.class);
         }
     }
