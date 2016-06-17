@@ -1,7 +1,8 @@
-package com.widehouse.order;
+package com.widehouse.order.domain;
 
 
 import com.widehouse.Product;
+import com.widehouse.order.domain.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,16 +17,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Created by kiel on 2016. 6. 15..
  */
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 public class OrderTest {
 
     Order order;
+    ShippingAddress shippingAddress;
 
     @Before
     public void setup() {
         Product product = new Product();
         List<OrderLine> orderLines = Arrays.asList(new OrderLine(product, 100, 1));
-        ShippingInfo shippingInfo = new ShippingInfo("", "", "", "", "");
+        shippingAddress = new ShippingAddress("", "", "");
+        ShippingInfo shippingInfo = new ShippingInfo("", "", shippingAddress);
 
         order = new Order(orderLines, shippingInfo);
     }
@@ -35,7 +38,7 @@ public class OrderTest {
         // Given
         Product product = new Product();
         List<OrderLine> orderLines = Arrays.asList(new OrderLine(product, 100, 2), new OrderLine(product, 300, 1));
-        ShippingInfo shippingInfo = new ShippingInfo("", "", "", "", "");
+        ShippingInfo shippingInfo = new ShippingInfo("", "", shippingAddress);
         // When
         Order order = new Order(orderLines, shippingInfo);
         // Then
@@ -46,7 +49,7 @@ public class OrderTest {
     public void emptyOrderLineShouldNotEmpty() {
         // Give
         List<OrderLine> orderLines = new ArrayList<>();
-        ShippingInfo shippingInfo = new ShippingInfo("", "", "", "", "");
+        ShippingInfo shippingInfo = new ShippingInfo("", "", shippingAddress);
 
         // When
         try {
@@ -75,7 +78,7 @@ public class OrderTest {
     @Test
     public void changeShippingInfoShouldSuccess() {
         // Given
-        ShippingInfo newShippingInfo = new ShippingInfo("1", "1", "", "", "");
+        ShippingInfo newShippingInfo = new ShippingInfo("1", "1", shippingAddress);
         order.changeOrderState(OrderState.PREPARING);
         // When
         order.changeShippingInfo(newShippingInfo);
@@ -90,7 +93,7 @@ public class OrderTest {
 
         try {
             // When
-            order.changeShippingInfo(new ShippingInfo("1", "1", "", "", ""));
+            order.changeShippingInfo(new ShippingInfo("1", "1", shippingAddress));
         } catch (Exception e) {
             // Then
             assertThat(e)

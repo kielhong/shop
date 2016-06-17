@@ -1,7 +1,7 @@
-package com.widehouse.order;
+package com.widehouse.order.domain;
 
 import com.widehouse.Product;
-import com.widehouse.order.OrderLine;
+import com.widehouse.order.domain.OrderLine;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Created by kiel on 2016. 6. 15..
  */
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 public class OrderLineTest {
 
     @Test

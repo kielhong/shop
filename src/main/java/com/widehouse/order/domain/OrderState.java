@@ -1,4 +1,4 @@
-package com.widehouse.order;
+package com.widehouse.order.domain;
 
 /**
  * Created by kiel on 2016. 6. 16..

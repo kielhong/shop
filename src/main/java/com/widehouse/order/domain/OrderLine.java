@@ -1,4 +1,4 @@
-package com.widehouse.order;
+package com.widehouse.order.domain;
 
 import com.widehouse.Product;
 
