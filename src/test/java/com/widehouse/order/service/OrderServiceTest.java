@@ -3,7 +3,6 @@ package com.widehouse.order.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
-import com.widehouse.Product;
 import com.widehouse.exception.OrderNotFoundException;
 import com.widehouse.order.domain.Order;
 import com.widehouse.order.domain.OrderLine;
@@ -11,12 +10,15 @@ import com.widehouse.order.domain.OrderRepository;
 import com.widehouse.order.domain.OrderState;
 import com.widehouse.order.domain.ShippingAddress;
 import com.widehouse.order.domain.ShippingInfo;
+import com.widehouse.product.Product;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
@@ -29,7 +31,7 @@ import java.util.List;
 @SpringBootTest
 public class OrderServiceTest {
     @MockBean
-    OrderRepository orderRepository;
+    private OrderRepository orderRepository;
     @Autowired
     private OrderService orderService;
 
@@ -43,7 +45,9 @@ public class OrderServiceTest {
         ShippingAddress shippingAddress = new ShippingAddress("", "", "");
         ShippingInfo shippingInfo = new ShippingInfo("", "", shippingAddress);
 
-        given(orderRepository.findOne(1L))
+        given(this.orderRepository.findOne(1L))
+                .willReturn(new Order(orderLines, shippingInfo));
+        given(this.orderRepository.findOne(0L))
                 .willReturn(new Order(orderLines, shippingInfo));
     }
 
@@ -70,4 +74,8 @@ public class OrderServiceTest {
             assertThat(e).isInstanceOf(OrderNotFoundException.class);
         }
     }
+
+    @Configuration
+    @Import(OrderService.class)
+    static class Config {}
 }

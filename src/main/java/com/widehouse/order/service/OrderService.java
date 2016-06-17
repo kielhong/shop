@@ -3,6 +3,7 @@ package com.widehouse.order.service;
 import com.widehouse.exception.OrderNotFoundException;
 import com.widehouse.order.domain.Order;
 import com.widehouse.order.domain.OrderRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Created by kiel on 2016. 6. 17..
  */
 @Service
+@Slf4j
 public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
@@ -25,7 +27,9 @@ public class OrderService {
      */
     @Transactional
     public void cancelOrder(Long orderId) {
+        log.debug("orderId:{}", orderId);
         Order order = findOrder(orderId);
+        log.debug("order:{}", order);
         if (order == null) {
             throw new OrderNotFoundException(orderId);
         }

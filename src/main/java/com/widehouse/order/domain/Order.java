@@ -5,22 +5,39 @@ import lombok.Getter;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
  * Created by kiel on 2016. 6. 15..
  */
+@Entity
+@Table(name = "purchase_order")
 @Getter
 @EqualsAndHashCode(of = "id")
 public class Order {
+    @Id
     private Long id;
+
     @NotNull
+    @Enumerated(EnumType.STRING)
     private OrderState orderState;
+
     @NotNull
+    @ElementCollection
+    @CollectionTable(name = "order_line")
     private List<OrderLine> orderLines;
+
     @NotNull
     private ShippingInfo shippingInfo;
-    private long totalAmount;
+
+    private Long totalAmounts;
 
     /**
      * Constructor
@@ -69,7 +86,7 @@ public class Order {
 
         this.orderLines = orderLines;
 
-        this.totalAmount = orderLines.stream()
+        this.totalAmounts = orderLines.stream()
                 .mapToLong(OrderLine::getAmount)
                 .sum();
     }

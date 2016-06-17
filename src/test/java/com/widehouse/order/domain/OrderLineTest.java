@@ -2,7 +2,7 @@ package com.widehouse.order.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.widehouse.Product;
+import com.widehouse.product.Product;
 import org.junit.Test;
 
 

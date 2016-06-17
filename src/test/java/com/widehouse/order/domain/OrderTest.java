@@ -3,7 +3,7 @@ package com.widehouse.order.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.widehouse.Product;
+import com.widehouse.product.Product;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -42,7 +42,7 @@ public class OrderTest {
         // When
         Order order = new Order(orderLines, shippingInfo);
         // Then
-        assertThat(order.getTotalAmount()).isEqualTo(500);
+        assertThat(order.getTotalAmounts()).isEqualTo(500);
     }
 
     @Test
