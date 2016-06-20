@@ -27,9 +27,7 @@ public class OrderService {
      */
     @Transactional
     public void cancelOrder(Long orderId) {
-        log.debug("orderId:{}", orderId);
         Order order = findOrder(orderId);
-        log.debug("order:{}", order);
         if (order == null) {
             throw new OrderNotFoundException(orderId);
         }
