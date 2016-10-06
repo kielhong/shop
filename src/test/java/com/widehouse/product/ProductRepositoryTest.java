@@ -2,7 +2,6 @@ package com.widehouse.product;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.widehouse.category.Category;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

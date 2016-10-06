@@ -1,4 +1,4 @@
-package com.widehouse.category;
+package com.widehouse.product;
 
 import com.widehouse.product.Product;
 import lombok.Getter;

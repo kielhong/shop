@@ -1,4 +1,4 @@
-package com.widehouse.order.service;
+package com.widehouse.service;
 
 import com.widehouse.exception.OrderNotFoundException;
 import com.widehouse.order.domain.Order;
