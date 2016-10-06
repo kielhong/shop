@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.4.0.M3'
+		springBootVersion = '1.4.1.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -38,7 +38,10 @@ dependencies {
 	runtime('com.h2database:h2')
 	runtime('mysql:mysql-connector-java')
 
-	testCompile('org.springframework.boot:spring-boot-starter-test') 
+    compile('org.webjars:angularjs:2.0.0-alpha.22')
+
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 checkstyle {
