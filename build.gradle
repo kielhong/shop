@@ -48,3 +48,7 @@ checkstyle {
     toolVersion = '6.17'
     sourceSets = [sourceSets.main, sourceSets.test]
 }
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '3.1'
+}
