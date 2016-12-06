@@ -1,9 +1,12 @@
+# IntelliJ config
 .idea/
 
+# graddle wrapper 
 .gradle/
 gradle/
-
-./gradlew
 gradlew.bat
+gradlew
 
+# build output
 build/
+
