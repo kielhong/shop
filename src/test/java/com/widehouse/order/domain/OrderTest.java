@@ -27,7 +27,7 @@ public class OrderTest {
     public void setup() {
         Product product = new Product();
         List<OrderLine> orderLines = Arrays.asList(new OrderLine(product, 100, 1));
-        shippingAddress = new ShippingAddress("", "", "");
+        shippingAddress = new ShippingAddress("", "", "Reston", "");
         ShippingInfo shippingInfo = new ShippingInfo("", "", shippingAddress);
 
         order = new Order(orderLines, shippingInfo);
@@ -97,8 +97,7 @@ public class OrderTest {
         } catch (Exception e) {
             // Then
             assertThat(e)
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage("already shipped");
+                    .isInstanceOf(IllegalStateException.class);
         }
     }
 
@@ -113,7 +112,7 @@ public class OrderTest {
         } catch (Exception e) {
             // Then
             assertThat(e)
-                    .isInstanceOf(IllegalArgumentException.class)
+                    .isInstanceOf(IllegalStateException.class)
                     .hasMessage("already shipped");
         }
     }

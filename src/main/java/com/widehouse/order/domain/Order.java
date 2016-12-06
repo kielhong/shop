@@ -55,11 +55,8 @@ public class Order {
      * @param shippingInfo 변경될 배송 정보
      */
     public void changeShippingInfo(ShippingInfo shippingInfo) {
-        if (isNotYetShipped()) {
-            setShippingInfo(shippingInfo);
-        } else {
-            throw new IllegalArgumentException("already shipped");
-        }
+        verifyNotYetShipped();
+        setShippingInfo(shippingInfo);
     }
 
     /**
@@ -74,11 +71,8 @@ public class Order {
      * 주문을 취소한다.
      */
     public void cancel() {
-        if (isNotYetShipped()) {
-            changeOrderState(OrderState.CANCELED);
-        } else {
-            throw new IllegalArgumentException("already shipped");
-        }
+        verifyNotYetShipped();
+        changeOrderState(OrderState.CANCELED);
     }
 
     private void setOrderLines(List<OrderLine> orderLines) {
@@ -87,7 +81,7 @@ public class Order {
         this.orderLines = orderLines;
 
         this.totalAmounts = orderLines.stream()
-                .mapToLong(OrderLine::getAmount)
+                .mapToLong(OrderLine::getAmounts)
                 .sum();
     }
 
@@ -97,8 +91,14 @@ public class Order {
         this.shippingInfo = shippingInfo;
     }
 
-    private boolean isNotYetShipped() {
+    private boolean shippingChangeable() {
         return (orderState == OrderState.PAYMENT_WAITING || orderState == OrderState.PREPARING);
+    }
+
+    private void verifyNotYetShipped() {
+        if (orderState != OrderState.PAYMENT_WAITING && orderState != OrderState.PREPARING) {
+            throw new IllegalStateException("already shipped");
+        }
     }
 
 

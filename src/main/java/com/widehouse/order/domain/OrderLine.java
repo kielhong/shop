@@ -4,7 +4,6 @@ import com.widehouse.product.Product;
 
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 /**
  * Created by kiel on 2016. 6. 15..
@@ -15,7 +14,7 @@ public class OrderLine {
     private Product product;
     private long price;
     private int quantity;
-    private long amount;
+    private long amounts;
 
     /**
      * Constructors
@@ -27,10 +26,14 @@ public class OrderLine {
         this.product = product;
         this.price = price;
         this.quantity = quantity;
-        this.amount = price * quantity;
+        this.amounts = calcuateAmounts();
     }
 
-    public long getAmount() {
-        return amount;
+    public long getAmounts() {
+        return amounts;
+    }
+
+    private long calcuateAmounts() {
+        return price * quantity;
     }
 }

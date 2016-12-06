@@ -14,5 +14,7 @@ import javax.persistence.Embeddable;
 public class ShippingAddress {
     private String shippingAddress1;
     private String shippingAddress2;
+    private String shippingCity;
     private String shippingZipcode;
+
 }

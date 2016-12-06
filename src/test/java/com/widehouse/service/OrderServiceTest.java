@@ -42,7 +42,7 @@ public class OrderServiceTest {
     public void setup() {
         Product product = new Product();
         List<OrderLine> orderLines = Arrays.asList(new OrderLine(product, 100, 1));
-        ShippingAddress shippingAddress = new ShippingAddress("", "", "");
+        ShippingAddress shippingAddress = new ShippingAddress("", "", "Reston", "");
         ShippingInfo shippingInfo = new ShippingInfo("", "", shippingAddress);
 
         given(this.orderRepository.findOne(1L))

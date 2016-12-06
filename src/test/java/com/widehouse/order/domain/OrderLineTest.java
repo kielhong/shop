@@ -18,6 +18,6 @@ public class OrderLineTest {
         Product product = new Product();
         OrderLine orderLine = new OrderLine(product, 500, 2);
         // Then
-        assertThat(orderLine.getAmount()).isEqualTo(1000);
+        assertThat(orderLine.getAmounts()).isEqualTo(1000);
     }
 }
