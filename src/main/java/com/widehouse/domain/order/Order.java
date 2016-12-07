@@ -1,4 +1,4 @@
-package com.widehouse.order.domain;
+package com.widehouse.domain.order;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

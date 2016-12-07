@@ -1,10 +1,9 @@
-package com.widehouse.order.domain;
+package com.widehouse.domain.order;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
 
 /**
  * Created by kiel on 2016. 6. 16..

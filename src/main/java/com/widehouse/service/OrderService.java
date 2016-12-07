@@ -1,8 +1,8 @@
 package com.widehouse.service;
 
 import com.widehouse.exception.OrderNotFoundException;
-import com.widehouse.order.domain.Order;
-import com.widehouse.order.domain.OrderRepository;
+import com.widehouse.domain.order.Order;
+import com.widehouse.repository.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

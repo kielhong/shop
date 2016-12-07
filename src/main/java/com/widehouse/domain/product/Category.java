@@ -1,9 +1,7 @@
-package com.widehouse.product;
+package com.widehouse.domain.product;
 
-import com.widehouse.product.Product;
 import lombok.Getter;
 
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

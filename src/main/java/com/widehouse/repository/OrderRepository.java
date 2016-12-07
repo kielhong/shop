@@ -1,6 +1,7 @@
-package com.widehouse.order.domain;
+package com.widehouse.repository;
 
 
+import com.widehouse.domain.order.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

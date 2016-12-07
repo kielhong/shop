@@ -1,6 +1,6 @@
-package com.widehouse.order.domain;
+package com.widehouse.domain.order;
 
-import com.widehouse.product.Product;
+import com.widehouse.domain.product.Product;
 
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
