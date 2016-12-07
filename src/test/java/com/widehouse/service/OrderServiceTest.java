@@ -63,7 +63,7 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void cancelNotExistOrderShouldFail() {
+    public void cancelNotExistOrderShouldThrowException() {
         // Given
         Long orderId = 0L;
         try {
@@ -73,6 +73,38 @@ public class OrderServiceTest {
             // Then
             assertThat(e).isInstanceOf(OrderNotFoundException.class);
         }
+    }
+
+    @Test
+    public void changeShippingInfoShouldChangeShippingInfo() {
+        // Given
+        Long orderId = 1L;
+        ShippingAddress newShippingAddress = new ShippingAddress("", "", "Herndon", "");
+        ShippingInfo newShippingInfo = new ShippingInfo("NewUser", "", newShippingAddress);
+
+        // When
+        orderService.changeShippingInfo(orderId, newShippingInfo);
+
+        // Then
+        Order changedOrder = orderRepository.findOne(orderId);
+        assertThat(changedOrder.getShippingInfo()).isEqualTo(newShippingInfo);
+    }
+
+    @Test
+    public void changeShippingInfoOfNotExistOrderShoudThrowException() {
+        // Given
+        Long orderId = -1L;
+        ShippingAddress newShippingAddress = new ShippingAddress("", "", "Herndon", "");
+        ShippingInfo newShippingInfo = new ShippingInfo("NewUser", "", newShippingAddress);
+
+        try {
+            // When
+            orderService.changeShippingInfo(orderId, newShippingInfo);
+        } catch (Exception e) {
+            // Then
+            assertThat(e).isInstanceOf(OrderNotFoundException.class);
+        }
+
     }
 
     @Configuration

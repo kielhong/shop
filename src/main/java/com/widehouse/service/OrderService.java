@@ -1,5 +1,6 @@
 package com.widehouse.service;
 
+import com.widehouse.domain.order.ShippingInfo;
 import com.widehouse.exception.OrderNotFoundException;
 import com.widehouse.domain.order.Order;
 import com.widehouse.repository.OrderRepository;
@@ -33,4 +34,15 @@ public class OrderService {
         }
         order.cancel();
     }
+
+    @Transactional
+    public void changeShippingInfo(Long orderId, ShippingInfo newShippingInfo) {
+        Order order = orderRepository.findOne(orderId);
+        if (order == null) {
+            throw new OrderNotFoundException(orderId);
+        }
+        order.changeShippingInfo(newShippingInfo);
+        orderRepository.saveAndFlush(order);
+    }
+
 }

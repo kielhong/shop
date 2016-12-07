@@ -1,4 +1,4 @@
-package com.widehouse.order.domain;
+package com.widehouse.domain.order;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -2,6 +2,7 @@ package com.widehouse.domain.order;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 import javax.persistence.Embeddable;
 
@@ -11,10 +12,11 @@ import javax.persistence.Embeddable;
 @Embeddable
 @AllArgsConstructor
 @Getter
+@ToString
 public class ShippingAddress {
-    private String shippingAddress1;
-    private String shippingAddress2;
-    private String shippingCity;
-    private String shippingZipcode;
+    private String address1;
+    private String address2;
+    private String city;
+    private String zipcode;
 
 }

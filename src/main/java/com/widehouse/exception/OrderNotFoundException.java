@@ -5,6 +5,6 @@ package com.widehouse.exception;
  */
 public class OrderNotFoundException extends RuntimeException {
     public OrderNotFoundException(Long orderId) {
-        super(orderId + " Not Found");
+        super("Order id " + orderId + " Not Found");
     }
 }
