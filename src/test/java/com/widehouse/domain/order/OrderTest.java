@@ -32,8 +32,9 @@ public class OrderTest {
     public void setup() {
         Product product = new Product();
         List<OrderLine> orderLines = Arrays.asList(new OrderLine(product, 100, 1));
+        Receiver receiver = new Receiver("", "");
         shippingAddress = new ShippingAddress("", "", "Reston", "");
-        ShippingInfo shippingInfo = new ShippingInfo("", "", shippingAddress);
+        ShippingInfo shippingInfo = new ShippingInfo(receiver, shippingAddress);
 
         order = new Order(orderLines, shippingInfo);
     }
@@ -43,7 +44,8 @@ public class OrderTest {
         // Given
         Product product = new Product();
         List<OrderLine> orderLines = Arrays.asList(new OrderLine(product, 100, 2), new OrderLine(product, 300, 1));
-        ShippingInfo shippingInfo = new ShippingInfo("", "", shippingAddress);
+        Receiver receiver = new Receiver("", "");
+        ShippingInfo shippingInfo = new ShippingInfo(receiver, shippingAddress);
         // When
         Order order = new Order(orderLines, shippingInfo);
         // Then
@@ -54,7 +56,8 @@ public class OrderTest {
     public void emptyOrderLineShouldNotEmpty() {
         // Give
         List<OrderLine> orderLines = new ArrayList<>();
-        ShippingInfo shippingInfo = new ShippingInfo("", "", shippingAddress);
+        Receiver receiver = new Receiver("", "");
+        ShippingInfo shippingInfo = new ShippingInfo(receiver, shippingAddress);
 
         try {
             // When
@@ -83,7 +86,8 @@ public class OrderTest {
     @Test
     public void changeShippingInfoShouldSuccess() {
         // Given
-        ShippingInfo newShippingInfo = new ShippingInfo("1", "1", shippingAddress);
+        Receiver receiver = new Receiver("1", "1");
+        ShippingInfo newShippingInfo = new ShippingInfo(receiver, shippingAddress);
         order.changeOrderState(OrderState.PREPARING);
         // When
         order.changeShippingInfo(newShippingInfo);
@@ -98,7 +102,9 @@ public class OrderTest {
 
         try {
             // When
-            order.changeShippingInfo(new ShippingInfo("1", "1", shippingAddress));
+            Receiver receiver = new Receiver("1", "1");
+            ShippingInfo newShippingInfo = new ShippingInfo(receiver, shippingAddress);
+            order.changeShippingInfo(newShippingInfo);
         } catch (Exception e) {
             // Then
             assertThat(e)

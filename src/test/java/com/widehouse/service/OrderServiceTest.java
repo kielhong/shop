@@ -3,6 +3,7 @@ package com.widehouse.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
+import com.widehouse.domain.order.Receiver;
 import com.widehouse.exception.OrderNotFoundException;
 import com.widehouse.domain.order.Order;
 import com.widehouse.domain.order.OrderLine;
@@ -42,8 +43,9 @@ public class OrderServiceTest {
     public void setup() {
         Product product = new Product();
         List<OrderLine> orderLines = Arrays.asList(new OrderLine(product, 100, 1));
+        Receiver receiver = new Receiver("tester", "123-456-7890");
         ShippingAddress shippingAddress = new ShippingAddress("", "", "Reston", "");
-        ShippingInfo shippingInfo = new ShippingInfo("", "", shippingAddress);
+        ShippingInfo shippingInfo = new ShippingInfo(receiver, shippingAddress);
 
         given(this.orderRepository.findOne(1L))
                 .willReturn(new Order(orderLines, shippingInfo));
@@ -79,8 +81,9 @@ public class OrderServiceTest {
     public void changeShippingInfoShouldChangeShippingInfo() {
         // Given
         Long orderId = 1L;
+        Receiver newReceiver = new Receiver("newuser", "123-456-7890");
         ShippingAddress newShippingAddress = new ShippingAddress("", "", "Herndon", "");
-        ShippingInfo newShippingInfo = new ShippingInfo("NewUser", "", newShippingAddress);
+        ShippingInfo newShippingInfo = new ShippingInfo(newReceiver, newShippingAddress);
 
         // When
         orderService.changeShippingInfo(orderId, newShippingInfo);
@@ -94,8 +97,9 @@ public class OrderServiceTest {
     public void changeShippingInfoOfNotExistOrderShoudThrowException() {
         // Given
         Long orderId = -1L;
+        Receiver newReceiver = new Receiver("newuser", "123-456-7890");
         ShippingAddress newShippingAddress = new ShippingAddress("", "", "Herndon", "");
-        ShippingInfo newShippingInfo = new ShippingInfo("NewUser", "", newShippingAddress);
+        ShippingInfo newShippingInfo = new ShippingInfo(newReceiver, newShippingAddress);
 
         try {
             // When
