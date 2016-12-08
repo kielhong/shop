@@ -26,14 +26,14 @@ public class OrderLine {
         this.product = product;
         this.price = price;
         this.quantity = quantity;
-        this.amounts = calcuateAmounts();
+        this.amounts = calculateAmounts();
     }
 
     public long getAmounts() {
         return amounts;
     }
 
-    private long calcuateAmounts() {
+    private long calculateAmounts() {
         return price * quantity;
     }
 }

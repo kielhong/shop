@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -32,6 +33,7 @@ public class Order {
     @NotNull
     @ElementCollection
     @CollectionTable(name = "order_line")
+    @OrderColumn(name = "line_idx")
     private List<OrderLine> orderLines;
 
     @NotNull
