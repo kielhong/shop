@@ -1,7 +1,13 @@
 package com.widehouse.domain.product;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.Embedded;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,6 +19,8 @@ import javax.persistence.ManyToMany;
  * Created by kiel on 2016. 6. 15..
  */
 @Entity
+@Getter
+@ToString
 public class Product {
     @Id
     @GeneratedValue
@@ -24,8 +32,12 @@ public class Product {
     @JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id"))
     private Set<Category> categories;
 
-    public Product() {
+    public Product() {}
 
+    public Product(Long id, String name, Category category) {
+        this.id = id;
+        this.name = name;
+        addCategory(category);
     }
 
     public Product(String name, Category category) {
@@ -33,10 +45,19 @@ public class Product {
         addCategory(category);
     }
 
+    public Product(String name, Set<Category> categories) {
+        this.name = name;
+        addCategory(categories);
+    }
+
     private void addCategory(Category category) {
         if (categories == null) {
             categories = new HashSet<>();
         }
         categories.add(category);
+    }
+
+    private void addCategory(Set<Category> categories) {
+        categories.stream().forEach(x -> addCategory(x));
     }
 }

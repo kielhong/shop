@@ -2,6 +2,7 @@ package com.widehouse.repository;
 
 import com.widehouse.domain.product.Category;
 import com.widehouse.domain.product.Product;
+import com.widehouse.domain.product.ProductId;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
