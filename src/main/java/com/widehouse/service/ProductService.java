@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Set;
+
 /**
  * Created by kiel on 2016. 12. 8..
  */
@@ -18,8 +20,8 @@ public class ProductService {
     private ProductRepository productRepository;
 
     @Transactional
-    public Product createProduct(String name, Category category) {
-        Product product = new Product(name, category);
+    public Product createProduct(String name, Integer price, Set<Category> categories) {
+        Product product = new Product(name, price, categories);
 
         return productRepository.save(product);
     }

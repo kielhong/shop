@@ -36,17 +36,18 @@ public class ProductRepositoryTest {
         entityManager.persist(category1);
         Category category2 = new Category();
         entityManager.persist(category2);
-        Product product1 = new Product("test1", category1);
-        Product product2 = new Product("test2", category1);
-        Product product3 = new Product("test3", category1);
-        Product product4 = new Product("test4", category1);
+
+        Product product1 = new Product("test1", 10, category1);
+        Product product2 = new Product("test2", 10, category1);
+        Product product3 = new Product("test3", 10, category1);
+        Product product4 = new Product("test4", 10, category1);
         entityManager.persist(product1);
         entityManager.persist(product2);
         entityManager.persist(product3);
         entityManager.persist(product4);
-        entityManager.persist(new Product("test5", category2));
-        entityManager.persist(new Product("test6", category2));
-        entityManager.persist(new Product("test7", category2));
+        entityManager.persist(new Product("test5", 11, category2));
+        entityManager.persist(new Product("test6", 12, category2));
+        entityManager.persist(new Product("test7", 13, category2));
         Pageable pageable = new PageRequest(0, 3, new Sort(Sort.Direction.ASC, "id"));
         // When
         List<Product> products = productRepository.findByCategory(category1, pageable);

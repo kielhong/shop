@@ -28,36 +28,37 @@ public class Product {
 
     private String name;
 
+    private Integer price;
+
     @ManyToMany
     @JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id"))
     private Set<Category> categories;
 
     public Product() {}
 
-    public Product(Long id, String name, Category category) {
+    public Product(Long id, String name, Integer price, Set<Category> categories) {
+        this(name, price, categories);
         this.id = id;
-        this.name = name;
-        addCategory(category);
     }
 
-    public Product(String name, Category category) {
+    public Product(String name, Integer price, Category category) {
         this.name = name;
-        addCategory(category);
-    }
-
-    public Product(String name, Set<Category> categories) {
-        this.name = name;
+        this.price = price;
+        Set<Category> categories = new HashSet<>();
+        categories.add(category);
         addCategory(categories);
     }
 
-    private void addCategory(Category category) {
-        if (categories == null) {
-            categories = new HashSet<>();
-        }
-        categories.add(category);
+    public Product(String name, Integer price, Set<Category> categories) {
+        this.name = name;
+        this.price = price;
+        addCategory(categories);
     }
 
     private void addCategory(Set<Category> categories) {
-        categories.stream().forEach(x -> addCategory(x));
+        if (this.categories == null) {
+            this.categories = new HashSet<>();
+        }
+        this.categories.addAll(categories);
     }
 }

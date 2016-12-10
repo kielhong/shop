@@ -4,11 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 
-import com.widehouse.domain.order.Order;
 import com.widehouse.domain.product.Category;
 import com.widehouse.domain.product.Product;
-import com.widehouse.domain.product.ProductId;
-import com.widehouse.repository.OrderRepository;
 import com.widehouse.repository.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -20,6 +17,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by kiel on 2016. 12. 8..
@@ -41,11 +41,13 @@ public class ProductServiceTest {
     public void shouldCreateProduct() {
         // Given
         String name = "Test Product";
-        Category category = new Category();
+        Integer price = 10;
+        Set<Category> categories = new HashSet<>();
+        categories.add(new Category());
         given(this.productRepository.save(any(Product.class)))
-                .willReturn(new Product(1L, name, category));
+                .willReturn(new Product(1L, name, price, categories));
         // When
-        Product product = productService.createProduct(name, category);
+        Product product = productService.createProduct(name, price, categories);
         // Then
         assertThat(product).isNotNull();
     }
