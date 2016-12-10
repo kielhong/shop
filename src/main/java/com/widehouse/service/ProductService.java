@@ -18,7 +18,8 @@ public class ProductService {
     private ProductRepository productRepository;
 
     @Transactional
-    public Product createProduct(Product product) {
+    public Product createProduct(String name, Category category) {
+        Product product = new Product(name, category);
 
         return productRepository.save(product);
     }

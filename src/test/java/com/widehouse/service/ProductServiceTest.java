@@ -2,6 +2,7 @@ package com.widehouse.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.any;
 
 import com.widehouse.domain.order.Order;
 import com.widehouse.domain.product.Category;
@@ -41,13 +42,12 @@ public class ProductServiceTest {
         // Given
         String name = "Test Product";
         Category category = new Category();
-        Product product = new Product(name, category);
-        given(this.productRepository.save(product))
-                .willReturn(new Product(2L, name, category));
+        given(this.productRepository.save(any(Product.class)))
+                .willReturn(new Product(1L, name, category));
         // When
-        Product savedProduct = productService.createProduct(product);
+        Product product = productService.createProduct(name, category);
         // Then
-        assertThat(savedProduct).isNotNull();
+        assertThat(product).isNotNull();
     }
 
     @Configuration
