@@ -36,7 +36,7 @@ public class OrderTest {
         shippingAddress = new ShippingAddress("", "", "Reston", "");
         ShippingInfo shippingInfo = new ShippingInfo(receiver, shippingAddress);
 
-        order = new Order(orderLines, shippingInfo);
+        order = new Order(orderLines, "", shippingInfo);
     }
 
     @Test
@@ -47,7 +47,7 @@ public class OrderTest {
         Receiver receiver = new Receiver("", "");
         ShippingInfo shippingInfo = new ShippingInfo(receiver, shippingAddress);
         // When
-        Order order = new Order(orderLines, shippingInfo);
+        Order order = new Order(orderLines, "", shippingInfo);
         // Then
         assertThat(order.getTotalAmounts()).isEqualTo(500);
     }
@@ -61,7 +61,7 @@ public class OrderTest {
 
         try {
             // When
-            Order order = new Order(orderLines, shippingInfo);
+            Order order = new Order(orderLines, "", shippingInfo);
         } catch (Exception e) {
             // Then
             assertThat(e).isInstanceOf(IllegalArgumentException.class);
@@ -76,7 +76,7 @@ public class OrderTest {
 
         try {
             // When
-            Order order = new Order(orderLines, null);
+            Order order = new Order(orderLines, "",null);
         } catch (Exception e) {
             // Then
             assertThat(e).isInstanceOf(IllegalArgumentException.class);

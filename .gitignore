@@ -10,3 +10,5 @@ gradlew
 # build output
 build/
 
+# generated source
+src/main/generated/

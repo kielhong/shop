@@ -43,14 +43,15 @@ public class OrderServiceTest {
     public void setup() {
         Product product = new Product();
         List<OrderLine> orderLines = Arrays.asList(new OrderLine(product, 100, 1));
+        String ordererId = "orderer";
         Receiver receiver = new Receiver("tester", "123-456-7890");
         ShippingAddress shippingAddress = new ShippingAddress("", "", "Reston", "");
         ShippingInfo shippingInfo = new ShippingInfo(receiver, shippingAddress);
 
         given(this.orderRepository.findOne(1L))
-                .willReturn(new Order(orderLines, shippingInfo));
+                .willReturn(new Order(orderLines, ordererId, shippingInfo));
         given(this.orderRepository.findOne(0L))
-                .willReturn(new Order(orderLines, shippingInfo));
+                .willReturn(new Order(orderLines, ordererId, shippingInfo));
     }
 
     @Test

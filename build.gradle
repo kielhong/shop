@@ -31,6 +31,9 @@ repositories {
 	maven { url "http://repo.spring.io/milestone" }
 }
 
+configurations {
+    jpamodelgen
+}
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
@@ -42,9 +45,12 @@ dependencies {
 
     compile('org.webjars:angularjs:2.0.0-alpha.22')
 
+    jpamodelgen ("org.hibernate:hibernate-jpamodelgen:5.2.5.Final")
+
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
 
 checkstyle {
     toolVersion = '7.3'
@@ -53,3 +59,18 @@ checkstyle {
 task wrapper(type: Wrapper) {
 	gradleVersion = '3.2.1'
 }
+
+sourceSets {
+    generated.java.srcDirs = ['src/main/generated']
+}
+
+task generateMetamodel(type: JavaCompile) {
+    source = sourceSets.main.java
+    classpath = configurations.compile + configurations.jpamodelgen
+    options.compilerArgs = [
+            "-proc:only"
+    ]
+    destinationDir = sourceSets.generated.java.srcDirs.iterator().next()
+}
+compileJava.dependsOn generateMetamodel
+compileJava.source sourceSets.generated.java, sourceSets.main.java

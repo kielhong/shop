@@ -1,15 +1,22 @@
 package com.widehouse.domain.order;
 
+import com.widehouse.domain.member.MemberId;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import javax.persistence.AttributeOverride;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
@@ -22,8 +29,10 @@ import javax.validation.constraints.NotNull;
 @Table(name = "purchase_order")
 @Getter
 @EqualsAndHashCode(of = "id")
+@ToString
 public class Order {
     @Id
+    @GeneratedValue
     private Long id;
 
     @NotNull
@@ -37,6 +46,10 @@ public class Order {
     private List<OrderLine> orderLines;
 
     @NotNull
+    @AttributeOverride(name = "memberId", column = @Column(name = "orderer_id", length = 20))
+    private MemberId ordererId;
+
+    @NotNull
     private ShippingInfo shippingInfo;
 
     private Long totalAmounts;
@@ -46,10 +59,11 @@ public class Order {
      * @param orderLines 주문 항목 목록
      * @param shippingInfo 배송 정보
      */
-    public Order(List<OrderLine> orderLines, ShippingInfo shippingInfo) {
+    public Order(List<OrderLine> orderLines, String ordererId, ShippingInfo shippingInfo) {
         setOrderLines(orderLines);
         setShippingInfo(shippingInfo);
-        orderState = OrderState.PREPARING;
+        this.ordererId = new MemberId(ordererId);
+        this.orderState = OrderState.PREPARING;
     }
 
     /**

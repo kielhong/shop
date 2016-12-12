@@ -1,6 +1,7 @@
 package com.widehouse.domain.order;
 
 import com.widehouse.domain.product.Product;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
@@ -9,6 +10,7 @@ import javax.persistence.ManyToOne;
  * Created by kiel on 2016. 6. 15..
  */
 @Embeddable
+@NoArgsConstructor
 public class OrderLine {
     @ManyToOne
     private Product product;

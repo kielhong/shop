@@ -2,6 +2,7 @@ package com.widehouse.domain.order;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.AttributeOverride;
@@ -15,6 +16,7 @@ import javax.persistence.Embedded;
  * Created by kiel on 2016. 6. 16..
  */
 @Embeddable
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @ToString
