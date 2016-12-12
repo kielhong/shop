@@ -6,6 +6,7 @@ import static org.mockito.Matchers.any;
 
 import com.widehouse.domain.product.Category;
 import com.widehouse.domain.product.Product;
+import com.widehouse.domain.product.ProductId;
 import com.widehouse.repository.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -45,14 +46,11 @@ public class ProductServiceTest {
         Set<Category> categories = new HashSet<>();
         categories.add(new Category());
         given(this.productRepository.save(any(Product.class)))
-                .willReturn(new Product(1L, name, price, categories));
+                .willReturn(new Product(new ProductId(1L), name, price, categories));
         // When
         Product product = productService.createProduct(name, price, categories);
         // Then
         assertThat(product).isNotNull();
+        assertThat(product.getId()).isNotNull();
     }
-
-    @Configuration
-    @Import(ProductService.class)
-    static class Config {}
 }

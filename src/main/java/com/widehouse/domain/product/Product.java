@@ -24,7 +24,7 @@ import javax.persistence.ManyToMany;
 public class Product {
     @Id
     @GeneratedValue
-    private Long id;
+    private ProductId id;
 
     private String name;
 
@@ -36,7 +36,7 @@ public class Product {
 
     public Product() {}
 
-    public Product(Long id, String name, Integer price, Set<Category> categories) {
+    public Product(ProductId id, String name, Integer price, Set<Category> categories) {
         this(name, price, categories);
         this.id = id;
     }
