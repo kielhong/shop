@@ -15,8 +15,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.HashSet;
@@ -46,7 +44,7 @@ public class ProductServiceTest {
         Set<Category> categories = new HashSet<>();
         categories.add(new Category());
         given(this.productRepository.save(any(Product.class)))
-                .willReturn(new Product(new ProductId(1L), name, price, categories));
+                .willReturn(new Product(1L, name, price, categories));
         // When
         Product product = productService.createProduct(name, price, categories);
         // Then
