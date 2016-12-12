@@ -110,8 +110,4 @@ public class OrderServiceTest {
         }
 
     }
-
-    @Configuration
-    @Import(OrderService.class)
-    static class Config {}
 }
