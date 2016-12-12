@@ -1,5 +1,8 @@
 package com.widehouse.domain.review;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -14,6 +17,8 @@ import javax.persistence.SecondaryTable;
 @SecondaryTable(
         name = "article_content",
         pkJoinColumns = @PrimaryKeyJoinColumn(name = "id"))
+@AllArgsConstructor
+@Getter
 public class Article {
     @Id
     private Long id;
@@ -26,5 +31,11 @@ public class Article {
 
     @Column(table = "article_content", columnDefinition = "text")
     private String content;
+
+    public Article(String title, String contentType, String content) {
+        this.title = title;
+        this.contentType = contentType;
+        this.content = content;
+    }
 
 }
