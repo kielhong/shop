@@ -41,6 +41,12 @@ public class Product {
         this.id = id;
     }
 
+    /**
+     * Constructor without id and one category
+     * @param name name of product
+     * @param price price of product
+     * @param category category of product
+     */
     public Product(String name, Integer price, Category category) {
         this.name = name;
         this.price = price;
@@ -49,6 +55,12 @@ public class Product {
         addCategory(categories);
     }
 
+    /**
+     * Constructor without id and many categories
+     * @param name name of product
+     * @param price price of product
+     * @param categories categories of product
+     */
     public Product(String name, Integer price, Set<Category> categories) {
         this.name = name;
         this.price = price;

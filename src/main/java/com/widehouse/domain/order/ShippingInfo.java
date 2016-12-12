@@ -28,6 +28,6 @@ public class ShippingInfo {
             @AttributeOverride(name = "address2", column = @Column(name = "shipping_address2")),
             @AttributeOverride(name = "city", column = @Column(name = "shipping_city")),
             @AttributeOverride(name = "zipcode", column = @Column(name = "shipping_zipcode", length = 10))
-    })
+            })
     private ShippingAddress address;
 }

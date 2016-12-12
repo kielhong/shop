@@ -1,8 +1,8 @@
 package com.widehouse.service;
 
+import com.widehouse.domain.order.Order;
 import com.widehouse.domain.order.ShippingInfo;
 import com.widehouse.exception.OrderNotFoundException;
-import com.widehouse.domain.order.Order;
 import com.widehouse.repository.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +35,11 @@ public class OrderService {
         order.cancel();
     }
 
+    /**
+     * 배송 주소 변경
+     * @param orderId 변경하려는 Order id
+     * @param newShippingInfo 변경하려는 배송 주소
+     */
     @Transactional
     public void changeShippingInfo(Long orderId, ShippingInfo newShippingInfo) {
         Order order = orderRepository.findOne(orderId);
