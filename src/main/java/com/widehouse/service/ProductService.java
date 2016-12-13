@@ -19,6 +19,13 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    /**
+     * Product 를 생성한다
+     * @param name product name
+     * @param price product price
+     * @param categories categories of product
+     * @return created Product
+     */
     @Transactional
     public Product createProduct(String name, Integer price, Set<Category> categories) {
         Product product = new Product(name, price, categories);

@@ -8,6 +8,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.springframework.util.Assert;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.CollectionTable;
@@ -20,6 +21,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -50,6 +53,9 @@ public class Order {
     private MemberId ordererId;
 
     @NotNull
+    private LocalDateTime orderDate;
+
+    @NotNull
     private ShippingInfo shippingInfo;
 
     private Long totalAmounts;
@@ -59,10 +65,11 @@ public class Order {
      * @param orderLines 주문 항목 목록
      * @param shippingInfo 배송 정보
      */
-    public Order(List<OrderLine> orderLines, String ordererId, ShippingInfo shippingInfo) {
+    public Order(List<OrderLine> orderLines, String ordererId, LocalDateTime orderDate, ShippingInfo shippingInfo) {
         setOrderLines(orderLines);
         setShippingInfo(shippingInfo);
         this.ordererId = new MemberId(ordererId);
+        this.orderDate = orderDate;
         this.orderState = OrderState.PREPARING;
     }
 

@@ -12,6 +12,7 @@ import com.widehouse.domain.product.Product;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,7 +37,7 @@ public class OrderTest {
         shippingAddress = new ShippingAddress("", "", "Reston", "");
         ShippingInfo shippingInfo = new ShippingInfo(receiver, shippingAddress);
 
-        order = new Order(orderLines, "", shippingInfo);
+        order = new Order(orderLines, "", LocalDateTime.now(), shippingInfo);
     }
 
     @Test
@@ -47,7 +48,7 @@ public class OrderTest {
         Receiver receiver = new Receiver("", "");
         ShippingInfo shippingInfo = new ShippingInfo(receiver, shippingAddress);
         // When
-        Order order = new Order(orderLines, "", shippingInfo);
+        Order order = new Order(orderLines, "", LocalDateTime.now(), shippingInfo);
         // Then
         assertThat(order.getTotalAmounts()).isEqualTo(500);
     }
@@ -61,7 +62,7 @@ public class OrderTest {
 
         try {
             // When
-            Order order = new Order(orderLines, "", shippingInfo);
+            Order order = new Order(orderLines, "", LocalDateTime.now(), shippingInfo);
         } catch (Exception e) {
             // Then
             assertThat(e).isInstanceOf(IllegalArgumentException.class);
@@ -76,7 +77,7 @@ public class OrderTest {
 
         try {
             // When
-            Order order = new Order(orderLines, "",null);
+            Order order = new Order(orderLines, "", LocalDateTime.now(),null);
         } catch (Exception e) {
             // Then
             assertThat(e).isInstanceOf(IllegalArgumentException.class);

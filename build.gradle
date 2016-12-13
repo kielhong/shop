@@ -1,6 +1,7 @@
 buildscript {
 	ext {
 		springBootVersion = '1.4.2.RELEASE'
+        hibernateVersion = '5.1.1.Final'
 	}
 	repositories {
 		mavenCentral()
@@ -39,13 +40,14 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-web')
 
+    compile("org.hibernate:hibernate-java8:${hibernateVersion}")
 	compile('org.projectlombok:lombok')
 	runtime('com.h2database:h2')
 	runtime('mysql:mysql-connector-java')
 
     compile('org.webjars:angularjs:2.0.0-alpha.22')
 
-    jpamodelgen ("org.hibernate:hibernate-jpamodelgen:5.2.5.Final")
+    jpamodelgen("org.hibernate:hibernate-jpamodelgen:${hibernateVersion}")
 
 
     testCompile('org.springframework.boot:spring-boot-starter-test')

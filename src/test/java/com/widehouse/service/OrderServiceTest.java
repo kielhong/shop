@@ -22,6 +22,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -49,9 +50,9 @@ public class OrderServiceTest {
         ShippingInfo shippingInfo = new ShippingInfo(receiver, shippingAddress);
 
         given(this.orderRepository.findOne(1L))
-                .willReturn(new Order(orderLines, ordererId, shippingInfo));
+                .willReturn(new Order(orderLines, ordererId, LocalDateTime.now(), shippingInfo));
         given(this.orderRepository.findOne(0L))
-                .willReturn(new Order(orderLines, ordererId, shippingInfo));
+                .willReturn(new Order(orderLines, ordererId, LocalDateTime.now(), shippingInfo));
     }
 
     @Test
