@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -14,7 +15,7 @@ import javax.persistence.Embeddable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class MemberId {
+public class MemberId implements Serializable {
     @Column(length = 20)
-    private String memberId;
+    private String id;
 }
