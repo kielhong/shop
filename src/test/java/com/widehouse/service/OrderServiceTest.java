@@ -3,23 +3,23 @@ package com.widehouse.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
-import com.widehouse.domain.order.Receiver;
-import com.widehouse.exception.OrderNotFoundException;
+import com.widehouse.domain.member.Member;
+import com.widehouse.domain.member.MemberId;
 import com.widehouse.domain.order.Order;
 import com.widehouse.domain.order.OrderLine;
-import com.widehouse.repository.OrderRepository;
 import com.widehouse.domain.order.OrderState;
+import com.widehouse.domain.order.Receiver;
 import com.widehouse.domain.order.ShippingAddress;
 import com.widehouse.domain.order.ShippingInfo;
 import com.widehouse.domain.product.Product;
+import com.widehouse.exception.OrderNotFoundException;
+import com.widehouse.repository.OrderRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
@@ -44,15 +44,15 @@ public class OrderServiceTest {
     public void setup() {
         Product product = new Product();
         List<OrderLine> orderLines = Arrays.asList(new OrderLine(product, 100, 1));
-        String ordererId = "orderer";
+        Member orderer = new Member(new MemberId("orderer"), "username");
         Receiver receiver = new Receiver("tester", "123-456-7890");
         ShippingAddress shippingAddress = new ShippingAddress("", "", "Reston", "");
         ShippingInfo shippingInfo = new ShippingInfo(receiver, shippingAddress);
 
         given(this.orderRepository.findOne(1L))
-                .willReturn(new Order(orderLines, ordererId, LocalDateTime.now(), shippingInfo));
+                .willReturn(new Order(orderLines, orderer, LocalDateTime.now(), shippingInfo));
         given(this.orderRepository.findOne(0L))
-                .willReturn(new Order(orderLines, ordererId, LocalDateTime.now(), shippingInfo));
+                .willReturn(new Order(orderLines, orderer, LocalDateTime.now(), shippingInfo));
     }
 
     @Test

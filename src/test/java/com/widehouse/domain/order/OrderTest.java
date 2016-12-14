@@ -3,6 +3,8 @@ package com.widehouse.domain.order;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.widehouse.domain.member.Member;
+import com.widehouse.domain.member.MemberId;
 import com.widehouse.domain.order.Order;
 import com.widehouse.domain.order.OrderLine;
 import com.widehouse.domain.order.OrderState;
@@ -24,6 +26,8 @@ import java.util.List;
 public class OrderTest {
 
     Order order;
+    Member orderer;
+    Product product;
     ShippingAddress shippingAddress;
 
     /**
@@ -31,24 +35,24 @@ public class OrderTest {
      */
     @Before
     public void setup() {
-        Product product = new Product();
+        orderer = new Member(new MemberId("user"), "username");
+        product = new Product();
         List<OrderLine> orderLines = Arrays.asList(new OrderLine(product, 100, 1));
         Receiver receiver = new Receiver("", "");
         shippingAddress = new ShippingAddress("", "", "Reston", "");
         ShippingInfo shippingInfo = new ShippingInfo(receiver, shippingAddress);
 
-        order = new Order(orderLines, "", LocalDateTime.now(), shippingInfo);
+        order = new Order(orderLines, orderer, LocalDateTime.now(), shippingInfo);
     }
 
     @Test
     public void testSetOrderLinesShouldSetTotalAmounts() {
         // Given
-        Product product = new Product();
         List<OrderLine> orderLines = Arrays.asList(new OrderLine(product, 100, 2), new OrderLine(product, 300, 1));
         Receiver receiver = new Receiver("", "");
         ShippingInfo shippingInfo = new ShippingInfo(receiver, shippingAddress);
         // When
-        Order order = new Order(orderLines, "", LocalDateTime.now(), shippingInfo);
+        Order order = new Order(orderLines, orderer, LocalDateTime.now(), shippingInfo);
         // Then
         assertThat(order.getTotalAmounts()).isEqualTo(500);
     }
@@ -62,7 +66,7 @@ public class OrderTest {
 
         try {
             // When
-            Order order = new Order(orderLines, "", LocalDateTime.now(), shippingInfo);
+            Order order = new Order(orderLines, orderer, LocalDateTime.now(), shippingInfo);
         } catch (Exception e) {
             // Then
             assertThat(e).isInstanceOf(IllegalArgumentException.class);
@@ -77,7 +81,7 @@ public class OrderTest {
 
         try {
             // When
-            Order order = new Order(orderLines, "", LocalDateTime.now(),null);
+            Order order = new Order(orderLines, orderer, LocalDateTime.now(),null);
         } catch (Exception e) {
             // Then
             assertThat(e).isInstanceOf(IllegalArgumentException.class);

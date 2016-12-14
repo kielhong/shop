@@ -1,5 +1,6 @@
 package com.widehouse.domain.order;
 
+import com.widehouse.domain.member.Member;
 import com.widehouse.domain.member.MemberId;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,6 +20,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -49,8 +51,8 @@ public class Order {
     private List<OrderLine> orderLines;
 
     @NotNull
-    @AttributeOverride(name = "memberId", column = @Column(name = "orderer_id", length = 20))
-    private MemberId ordererId;
+    @ManyToOne
+    private Member orderer;
 
     @NotNull
     private LocalDateTime orderDate;
@@ -65,10 +67,10 @@ public class Order {
      * @param orderLines 주문 항목 목록
      * @param shippingInfo 배송 정보
      */
-    public Order(List<OrderLine> orderLines, String ordererId, LocalDateTime orderDate, ShippingInfo shippingInfo) {
+    public Order(List<OrderLine> orderLines, Member orderer, LocalDateTime orderDate, ShippingInfo shippingInfo) {
         setOrderLines(orderLines);
         setShippingInfo(shippingInfo);
-        this.ordererId = new MemberId(ordererId);
+        this.orderer = orderer;
         this.orderDate = orderDate;
         this.orderState = OrderState.PREPARING;
     }

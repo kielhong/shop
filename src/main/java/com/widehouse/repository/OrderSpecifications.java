@@ -1,6 +1,9 @@
 package com.widehouse.repository;
 
+import com.widehouse.domain.member.Member;
 import com.widehouse.domain.member.MemberId;
+import com.widehouse.domain.member.MemberId_;
+import com.widehouse.domain.member.Member_;
 import com.widehouse.domain.order.Order;
 import com.widehouse.domain.order.Order_;
 import org.springframework.data.jpa.domain.Specification;
@@ -18,14 +21,14 @@ import javax.persistence.criteria.Root;
 public class OrderSpecifications {
     /**
      * 주문자가 orderId 인지 여부
-     * @param ordererId 주문자 id
+     * @param orderer 주문자
      * @return Specification
      */
-    public static Specification<Order> isOrderByMember(String ordererId) {
+    public static Specification<Order> isOrderByMember(Member orderer) {
         return new Specification<Order>() {
             @Override
             public Predicate toPredicate(Root<Order> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                return cb.equal(root.get(Order_.ordererId), new MemberId(ordererId));
+                return cb.equal(root.get(Order_.orderer), orderer);
             }
         };
     }
